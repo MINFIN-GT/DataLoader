@@ -26,7 +26,7 @@ public class CAprobado {
                    "SUM (d.cuota_mes2_apr) mes2_apr, "+
                    "SUM (d.cuota_mes3_apr) mes3_apr, "+
                    "SUM (d.cuota_mes4_apr) mes4_apr "+
-                   "FROM "+schema+".EG_FINANCIERO_DETALLE_4 D, "+
+                   "FROM "+schema+".eg_financiero_detalle_4 D, "+
                    schema+".eg_financiero_hoja_4 H1 "+
                    "WHERE  h1.ejercicio = d.ejercicio "+
                    ((!historia) ? " and h1.ejercicio="+date.getYear():"") + " "+
