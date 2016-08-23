@@ -22,7 +22,9 @@ public class CEjecucionFisica {
 		boolean ret = false;
 		try{
 			if(!conn.isClosed()){
-				ResultSet rs = conn.prepareStatement(query).executeQuery();
+				PreparedStatement pstm0 = conn.prepareStatement(query);
+				pstm0.setFetchSize(1000);
+				ResultSet rs = pstm0.executeQuery();
 				boolean bconn=(schema.compareTo("sicoinprod")==0) ? CMemSQL.connect() : CMemSQL.connectdes();
 				if(rs!=null && bconn){
 					ret = true;
@@ -102,7 +104,9 @@ public class CEjecucionFisica {
 		boolean ret = false;
 		try{
 			if(!conn.isClosed()){
-				ResultSet rs = conn.prepareStatement(query).executeQuery();
+				PreparedStatement pstm0 = conn.prepareStatement(query);
+				pstm0.setFetchSize(1000);
+				ResultSet rs = pstm0.executeQuery();
 				boolean bconn=(schema.compareTo("sicoinprod")==0) ? CMemSQL.connect() : CMemSQL.connectdes();
 				if(rs!=null && bconn){
 					ret = true;

@@ -12,7 +12,9 @@ public class CDepartamentos {
 		boolean ret = false;
 		try{
 			if(!conn.isClosed()){
-				ResultSet rs = conn.prepareStatement(query).executeQuery();
+				PreparedStatement pstm0 = conn.prepareStatement(query);
+				pstm0.setFetchSize(1000);
+				ResultSet rs = pstm0.executeQuery();
 				if(rs!=null && CMemSQL.connect()){
 					ret = true;
 					int rows = 0;
