@@ -39,6 +39,7 @@ public class CMain {
 		options.addOption("tn_ejes", "tn-ejes", false, "calcula los datos de los ejes del TN");
 		options.addOption("tn_ent", "tn-entidades", false, "calcula los datos de las entidades del TN");
 		options.addOption("tn_ef", "tn-estructuras-financieras", false, "calcula las estructuras financieras del TN");
+		options.addOption("u_medida", "unidades-medida", false, "Carga ");
 		options.addOption("update_all","update-all",false,"Cargar todas las tablas a MemSQL");
 		options.addOption("update_all_des","update-all-des",false,"Cargar todas las tablas descentralizadas a MemSQL");
 		options.addOption( "h", "help", false, "muestra este listado de opciones" );
@@ -156,6 +157,11 @@ public class CMain {
 				 CLogger.writeConsole("Inicio calculos financieros de estructuras de financiamiento del triangulo norte...");
 				 if(CTrianguloNorte.loadEstructurasFinanciamiento())
 					 CLogger.writeConsole("Datos de Estructuras de financiamiento del Triangulo Norte, calculados con exito");
+			 }
+			 else if(cline.hasOption("unidades-medida")){
+				 CLogger.writeConsole("Inicio de carga de unidades de medida...");
+				 if(CUnidadMedida.loadUnidadesMedida(conn, false, "sicoinprod"))
+					 CLogger.writeConsole("Datos de unidades de medida cargados con exito");
 			 }
 			 else if (cline.hasOption("update-all")){
 				 CLogger.writeConsole("Inicio de importacion de todos las tablas.");
