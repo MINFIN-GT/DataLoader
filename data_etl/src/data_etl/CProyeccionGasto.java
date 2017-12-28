@@ -18,7 +18,7 @@ public class CProyeccionGasto {
 				"case when sum(total)>0  then (sum(mensual)/sum(total)) " + 
 				"else 0.00 end indice " + 
 				"from ( " + 
-				"    select mensual.*, anual.total " + 
+				"    select mensual.ejercicio, mensual.entidad, mensual.unidad_ejecutora, mensual.renglon, mensual.fuente, mensual.mes, mensual.mensual, anual.total " + 
 				"    from ( " + 
 				"      select ed.ejercicio, eh.entidad, eh.unidad_ejecutora, ed.renglon, ed.fuente, month(eh.fec_aprobado) mes, sum(ed.monto_renglon) mensual " + 
 				"      from "+schema+".EG_GASTOS_DETALLE ed, "+schema+".EG_GASTOS_HOJA eh  " + 
@@ -47,7 +47,7 @@ public class CProyeccionGasto {
 				"    and mensual.unidad_ejecutora = anual.unidad_ejecutora " + 
 				"    and mensual.renglon = anual.renglon " + 
 				"    and mensual.fuente = anual.fuente " + 
-				"    order by 2, 3, 4, 5, 6,1 " + 
+				"    order by mensual.entidad, mensual.unidad_ejecutora, mensual.renglon, mensual.fuente, mensual.mes, mensual.mensual, mensual.ejercicio " + 
 				") todo " + 
 				"where ejercicio < " + date.getYear() + " " + 
 				"group by entidad,  mes";
