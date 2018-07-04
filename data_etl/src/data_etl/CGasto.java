@@ -26,7 +26,7 @@ public class CGasto {
 		try{
 			if(!conn.isClosed()){
 				PreparedStatement pstm0 = conn.prepareStatement(query);
-				pstm0.setFetchSize(1000);
+				pstm0.setFetchSize(10000);
 				ResultSet rs = pstm0.executeQuery();
 				boolean bconn=(schema.compareTo("sicoinprod")==0) ? CMemSQL.connect() : CMemSQL.connectdes();
 				if(rs!=null && bconn){
@@ -54,7 +54,7 @@ public class CGasto {
 						pstm.setDouble(4, rs.getDouble("total"));
 						pstm.addBatch();
 						rows++;
-						if((rows % 1000) == 0){
+						if((rows % 100000) == 0){
 							pstm.executeBatch();
 							CLogger.writeConsole(String.join(" ","Records escritos: ",String.valueOf(rows)));
 						}
@@ -146,7 +146,7 @@ public class CGasto {
 						pstm.setInt(20, itemp);
 						pstm.addBatch();
 						rows++;
-						if((rows % 1000) == 0)
+						if((rows % 10000) == 0)
 							pstm.executeBatch();
 						if(rows % 100000 == 0)
 							CLogger.writeConsole(String.join(" ","Records escritos: ",String.valueOf(rows)));

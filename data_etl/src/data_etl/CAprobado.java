@@ -102,7 +102,7 @@ public class CAprobado {
 						pstm.setDouble(18, rs.getDouble("mes4_apr"));
 						pstm.addBatch();
 						rows++;
-						if((rows % 1000) == 0){
+						if((rows % 10000) == 0){
 							pstm.executeBatch();
 							CLogger.writeConsole(String.join(" ","Records escritos: ",String.valueOf(rows)));
 						}

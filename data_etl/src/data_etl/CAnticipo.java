@@ -78,7 +78,7 @@ public class CAnticipo {
 						if((rows % 1000) == 0)
 							pstm.executeBatch();
 						rows++;
-						if((rows % 100) == 0)
+						if((rows % 1000) == 0)
 							CLogger.writeConsole(String.join(" ","Records escritos: ",String.valueOf(rows)));
 					
 					}

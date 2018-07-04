@@ -53,7 +53,7 @@ public class CEstructuras {
 						pstm.setString(10,rs.getString("nom_estructura"));
 						pstm.addBatch();
 						rows++;
-						if((rows % 1000) == 0){
+						if((rows % 10000) == 0){
 							pstm.executeBatch();
 							CLogger.writeConsole(String.join(" ","Records escritos: ",String.valueOf(rows)));
 						}

@@ -75,7 +75,7 @@ public class CEjecucionFisica {
 						pstm.setInt(21,rs.getInt("unidad_ejecutora"));
 						pstm.addBatch();
 						rows++;
-						if((rows % 1000) == 0){
+						if((rows % 10000) == 0){
 							pstm.executeBatch();
 							CLogger.writeConsole(String.join(" ","Records escritos: ",String.valueOf(rows)));
 						}
