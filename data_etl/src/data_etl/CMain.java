@@ -20,7 +20,7 @@ public class CMain {
 		options = new Options();
 		
 		options.addOption("cge", "cg-entidades", true, "importa el catalogo de entidades por ejericio");
-		options.addOption("cpe", "cp-estructuras", false, "importa el catalogo de estructuras por ejericio");
+		options.addOption("cpe", "cp-estructuras", true, "importa el catalogo de estructuras por ejericio");
 		options.addOption("cgu", "cg-unidadesejecutoras", false, "importa el catalogo de unidades ejecutoras por ejercicio");
 		options.addOption("cgd", "cg-departamentos", false, "importa el catalogo de departamentos");
 		options.addOption("cgf", "cg-fuentes", false, "importa el catalogo de fuentes por ejericio");
@@ -81,8 +81,9 @@ public class CMain {
 					 CLogger.writeConsole("Entidades por Ejercicio importadas con exito");
 			 }
 			 else if(cline.hasOption("cp-estructuras")){
+				 int ejercicio = cline.getOptionValue("cpe")!=null ? Integer.parseInt(cline.getOptionValue("cpe")) : DateTime.now().getYear();
 				 CLogger.writeConsole("Inicio de importacion de catalogo de estructuras por ejercicio...");
-				 if(CEstructuras.loadEstructuras(conn, "sicoinprod"))
+				 if(CEstructuras.loadEstructuras(conn, "sicoinprod", ejercicio))
 					 CLogger.writeConsole("Estructuras por Ejercicio importadas con exito");
 			 }
 			 else if(cline.hasOption("cg-unidadesejecutoras")){
@@ -164,11 +165,12 @@ public class CMain {
 					 CLogger.writeConsole("Datos de unidades de medida cargados con exito");
 			 }
 			 else if (cline.hasOption("update-all")){
+				 int ejercicio = cline.getOptionValue("update_all")!=null ? Integer.parseInt(cline.getOptionValue("update_all")) : DateTime.now().getYear();
 				 CLogger.writeConsole("Inicio de importacion de todos las tablas.");
 				 if(CAprobado.loadAprobados(conn,false, "sicoinprod") && 
 						CAnticipo.loadAnticipos(conn,false, "sicoinprod") &&
 						CEntidades.loadEntidades(conn,false, "sicoinprod") &&
-						CEstructuras.loadEstructuras(conn, "sicoinprod") &&
+						CEstructuras.loadEstructuras(conn, "sicoinprod", ejercicio) &&
 						CFuentes.loadFuentes(conn, "sicoinprod") &&
 						CGrupoGasto.loadGruposGasto(conn, "sicoinprod") &&
 						CProyeccionGasto.calculateProyeccionGastoFuentesTributarias_EntidadMes(conn, "sicoinprod") &&
@@ -190,13 +192,14 @@ public class CMain {
 					CLogger.writeConsole("todas las tablas importadas con exito");
 			 }
 			 else if (cline.hasOption("update-all-des")){
+				 int ejercicio = cline.getOptionValue("update_all_des")!=null ? Integer.parseInt(cline.getOptionValue("update_all_des")) : DateTime.now().getYear();
 				 CLogger.writeConsole("Inicio de importacion de todos las tablas. SICOIN Descentralizado.");
 				 CHive.close();
 				 conn = CHive.openConnectiondes();
 				 if(CAprobado.loadAprobados(conn,false, "sicoindescent") && 
 						CAnticipo.loadAnticipos(conn,false, "sicoindescent") &&
 						CEntidades.loadEntidades(conn,false, "sicoindescent") &&
-						CEstructuras.loadEstructuras(conn, "sicoindescent") &&
+						CEstructuras.loadEstructuras(conn, "sicoindescent", ejercicio) &&
 						CFuentes.loadFuentes(conn, "sicoindescent") &&
 						CGrupoGasto.loadGruposGasto(conn, "sicoindescent") &&
 						CProyeccionGasto.calculateProyeccionGastoFuentesTributarias_EntidadMes(conn, "sicoindescent") &&

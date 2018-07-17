@@ -4,15 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import org.joda.time.DateTime;
-
 import utilities.CLogger;
 
 public class CEstructuras {
-	public static boolean loadEstructuras(Connection conn, String schema){
-		DateTime date = new DateTime();
-		String query = "select nivel_estructura, ejercicio, entidad, unidad_ejecutora, programa, subprograma, proyecto, obra, actividad,nom_estructura from "+schema+".cp_estructuras "
-				+ "where ejercicio="+date.getYear();
+	public static boolean loadEstructuras(Connection conn, String schema, int ejercicio){
+		String query = "select nivel_estructura, ejercicio, entidad, unidad_ejecutora, programa, subprograma, proyecto, obra, actividad,nom_estructura, funcion from "+schema+".cp_estructuras "
+				+ "where ejercicio="+ejercicio;
 		boolean ret = false;
 		try{
 			if(!conn.isClosed()){
@@ -28,12 +25,13 @@ public class CEstructuras {
 					
 					boolean first=true;
 					pstm = CMemSQL.getConnection().prepareStatement("Insert INTO cp_estructuras"
-							+ "(nivel_estructura, ejercicio, entidad, unidad_ejecutora, programa, subprograma, proyecto, obra, actividad,nom_estructura) "
-							+ "values (?,?,?,?,?,?,?,?,?,?) ");
+							+ "(nivel_estructura, ejercicio, entidad, unidad_ejecutora, programa, subprograma, proyecto, obra, actividad,nom_estructura, funcion) "
+							+ "values (?,?,?,?,?,?,?,?,?,?,"
+							+ "?) ");
 					while(rs.next()){
 						if(first){
 							PreparedStatement pstm1 = CMemSQL.getConnection().prepareStatement("delete from cp_estructuras "
-									+ " where ejercicio="+date.getYear());
+									+ " where ejercicio="+ejercicio);
 							if (pstm1.executeUpdate()>0)
 								CLogger.writeConsole("Registros eliminados");
 							else
@@ -51,6 +49,7 @@ public class CEstructuras {
 						pstm.setInt(8,rs.getInt("obra"));		
 						pstm.setInt(9, rs.getInt("actividad"));
 						pstm.setString(10,rs.getString("nom_estructura"));
+						pstm.setInt(11, rs.getInt("funcion"));
 						pstm.addBatch();
 						rows++;
 						if((rows % 10000) == 0){
