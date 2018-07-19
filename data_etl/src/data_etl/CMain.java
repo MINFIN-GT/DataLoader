@@ -21,6 +21,7 @@ public class CMain {
 		
 		options.addOption("cge", "cg-entidades", true, "importa el catalogo de entidades por ejericio");
 		options.addOption("cpe", "cp-estructuras", true, "importa el catalogo de estructuras por ejericio");
+		options.addOption("cgfun", "cg-funciones", true, "importa el catalogo de funciones por ejericio");
 		options.addOption("cgu", "cg-unidadesejecutoras", false, "importa el catalogo de unidades ejecutoras por ejercicio");
 		options.addOption("cgd", "cg-departamentos", false, "importa el catalogo de departamentos");
 		options.addOption("cgf", "cg-fuentes", false, "importa el catalogo de fuentes por ejericio");
@@ -85,6 +86,12 @@ public class CMain {
 				 CLogger.writeConsole("Inicio de importacion de catalogo de estructuras por ejercicio...");
 				 if(CEstructuras.loadEstructuras(conn, "sicoinprod", ejercicio))
 					 CLogger.writeConsole("Estructuras por Ejercicio importadas con exito");
+			 }
+			 else if(cline.hasOption("cg-funciones")){
+				 int ejercicio = cline.getOptionValue("cgfun")!=null ? Integer.parseInt(cline.getOptionValue("cgfun")) : DateTime.now().getYear();
+				 CLogger.writeConsole("Inicio de importacion de catalogo de funciones por ejercicio...");
+				 if(CFunciones.loadFunciones(conn, "sicoinprod", ejercicio))
+					 CLogger.writeConsole("Funciones por Ejercicio importadas con exito");
 			 }
 			 else if(cline.hasOption("cg-unidadesejecutoras")){
 				 CLogger.writeConsole("Inicio de importacion de catalogo de unidades ejecutoras por ejercicio...");
@@ -171,6 +178,7 @@ public class CMain {
 						CAnticipo.loadAnticipos(conn,false, "sicoinprod") &&
 						CEntidades.loadEntidades(conn,false, "sicoinprod") &&
 						CEstructuras.loadEstructuras(conn, "sicoinprod", ejercicio) &&
+						CFunciones.loadFunciones(conn, "sicoinprod", ejercicio) &&
 						CFuentes.loadFuentes(conn, "sicoinprod") &&
 						CGrupoGasto.loadGruposGasto(conn, "sicoinprod") &&
 						CProyeccionGasto.calculateProyeccionGastoFuentesTributarias_EntidadMes(conn, "sicoinprod") &&
@@ -200,6 +208,7 @@ public class CMain {
 						CAnticipo.loadAnticipos(conn,false, "sicoindescent") &&
 						CEntidades.loadEntidades(conn,false, "sicoindescent") &&
 						CEstructuras.loadEstructuras(conn, "sicoindescent", ejercicio) &&
+						CFunciones.loadFunciones(conn, "sicoindescent", ejercicio) &&
 						CFuentes.loadFuentes(conn, "sicoindescent") &&
 						CGrupoGasto.loadGruposGasto(conn, "sicoindescent") &&
 						CProyeccionGasto.calculateProyeccionGastoFuentesTributarias_EntidadMes(conn, "sicoindescent") &&
