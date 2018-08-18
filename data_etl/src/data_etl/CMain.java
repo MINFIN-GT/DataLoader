@@ -41,6 +41,7 @@ public class CMain {
 		options.addOption("tn_ent", "tn-entidades", false, "calcula los datos de las entidades del TN");
 		options.addOption("tn_ef", "tn-estructuras-financieras", false, "calcula las estructuras financieras del TN");
 		options.addOption("u_medida", "unidades-medida", false, "Carga ");
+		options.addOption("te_estado_cuentas", "tesoreria-estado-cuentas", true, "importa los estados de cuenta iniciales de las cuentas de tesoreria ");
 		options.addOption("update_all","update-all",false,"Cargar todas las tablas a MemSQL");
 		options.addOption("update_all_des","update-all-des",false,"Cargar todas las tablas descentralizadas a MemSQL");
 		options.addOption( "h", "help", false, "muestra este listado de opciones" );
@@ -170,6 +171,12 @@ public class CMain {
 				 CLogger.writeConsole("Inicio de carga de unidades de medida...");
 				 if(CUnidadMedida.loadUnidadesMedida(conn, false, "sicoinprod"))
 					 CLogger.writeConsole("Datos de unidades de medida cargados con exito");
+			 }
+			 else if(cline.hasOption("tesoreria-estado-cuentas")){
+				 int ejercicio = cline.getOptionValue("te_estado_cuentas")!=null ? Integer.parseInt(cline.getOptionValue("te_estado_cuentas")) : DateTime.now().getYear();
+				 CLogger.writeConsole("Inicio de importacion de la tabla te_estado_cuentas...");
+				 if(CTesoreriaCuenta.loadEstadoCuentas(conn, "sicoinprod", ejercicio))
+					 CLogger.writeConsole("Estads de Cuenta importados con exito");
 			 }
 			 else if (cline.hasOption("update-all")){
 				 int ejercicio = cline.getOptionValue("update_all")!=null ? Integer.parseInt(cline.getOptionValue("update_all")) : DateTime.now().getYear();
