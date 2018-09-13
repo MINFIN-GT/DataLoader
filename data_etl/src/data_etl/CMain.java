@@ -196,9 +196,9 @@ public class CMain {
 						CGasto.fullGastoHistorico(conn,false, "sicoinprod") &&
 						CGastoActual.LoadGastoActual(conn, "sicoinprod") &&
 						CFechaActualizacionData.UpdateLoadDate("ejecucionpresupuestaria") &&
-						CTrianguloNorte.loadEjesTrianguloNorte() &&
-						CTrianguloNorte.loadEntidadesTrianguloNorte() &&
-						CTrianguloNorte.loadEstructurasFinanciamiento() &&
+						//CTrianguloNorte.loadEjesTrianguloNorte() &&
+						//CTrianguloNorte.loadEntidadesTrianguloNorte() &&
+						//CTrianguloNorte.loadEstructurasFinanciamiento() &&
 						CFechaActualizacionData.UpdateLoadDate("paptn_ejecucionfinanciera") && 
 						CEjecucionFisica.loadEjeucionHoja(conn, false, "sicoinprod") &&
 						CEjecucionFisica.loadEjecucionDetalle(conn, false, "sicoinprod") &&
