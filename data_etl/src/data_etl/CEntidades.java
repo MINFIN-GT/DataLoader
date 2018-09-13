@@ -12,12 +12,12 @@ public class CEntidades {
 	
 	public static boolean loadEntidades(Connection conn, boolean historico, String schema){
 		DateTime date = new DateTime();
-		String query = "SELECT e.ejercicio, e.entidad , e.nombre , e.sigla, e.nit, e.codigo_departamento, e.codigo_municipio," +
+		String query = "SELECT e.ejercicio, e.entidad , e.nombre, " +
+				" e.unidad_ejecutora, e.sigla, e.nit, e.codigo_departamento, e.codigo_municipio," +
 				" SUM( CASE WHEN (ue.unidad_ejecutora > 0) THEN 1 ELSE 0 END) AS ues " +
 				" FROM 	"+schema+".cg_entidades  e,  "+schema+".cg_entidades  ue " +
 				" WHERE e.ejercicio = ue.ejercicio " +
 				" AND e.entidad = ue.entidad " +
-				" and e.unidad_ejecutora = 0 " +
 				" and e.restrictiva = 'N' " +
 				" and ue.restrictiva = 'N' " +
 				" and ue.ejecuta_gastos = 'S' "+
@@ -51,7 +51,8 @@ public class CEntidades {
 							first=false;
 						}
 						pstm.setInt(1, rs.getInt("ejercicio"));
-						pstm.setInt(2,rs.getInt("entidad"));		
+						pstm.setInt(2,rs.getInt("entidad"));
+						pstm.setInt(2,rs.getInt("unidad_ejecutora"));
 						pstm.setString(3, rs.getString("nombre"));
 						pstm.setString(4, rs.getString("sigla"));
 						pstm.setString(5, rs.getString("nit"));
