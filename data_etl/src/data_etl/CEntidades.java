@@ -23,7 +23,7 @@ public class CEntidades {
 				" and ue.ejecuta_gastos = 'S' "+
 				(schema.compareTo("sicoinprod")==0  ? " and e.comportamiento='GOBIERNO_CENTRAL' "  : " and e.comportamiento='DESCENTRALIZADA'")+
 				(!historico ? "	   and e.ejercicio = " + date.getYear() + " " : "" ) +
-				" GROUP BY e.ejercicio, e.entidad , e.nombre , e.sigla, e.nit, e.codigo_departamento, e.codigo_municipio";
+				" GROUP BY e.ejercicio, e.entidad , e.nombre , e.unidad_ejecutora, e.sigla, e.nit, e.codigo_departamento, e.codigo_municipio";
 		boolean ret = false;
 		try{
 			if(!conn.isClosed()){
@@ -37,8 +37,8 @@ public class CEntidades {
 					CLogger.writeConsole("CEntidades:");
 					PreparedStatement pstm;
 					boolean first=true;
-					pstm = CMemSQL.getConnection().prepareStatement("Insert INTO cg_entidades(ejercicio,entidad,nombre,sigla,nit,codigo_municipio,ues) "
-							+ "values (?,?,?,?,?,?,?) ");
+					pstm = CMemSQL.getConnection().prepareStatement("Insert INTO cg_entidades(ejercicio,entidad,nombre,unidad_ejecutora, sigla,nit,codigo_municipio,ues) "
+							+ "values (?,?,?,?,?,?,?,?) ");
 					while(rs.next()){
 						if(first){
 							PreparedStatement pstm1 = CMemSQL.getConnection().prepareStatement("delete from cg_entidades "
@@ -52,12 +52,12 @@ public class CEntidades {
 						}
 						pstm.setInt(1, rs.getInt("ejercicio"));
 						pstm.setInt(2,rs.getInt("entidad"));
-						pstm.setInt(2,rs.getInt("unidad_ejecutora"));
-						pstm.setString(3, rs.getString("nombre"));
-						pstm.setString(4, rs.getString("sigla"));
-						pstm.setString(5, rs.getString("nit"));
-						pstm.setInt(6,rs.getInt("codigo_municipio"));
-						pstm.setInt(7,rs.getInt("ues"));
+						pstm.setInt(3,rs.getInt("unidad_ejecutora"));
+						pstm.setString(4, rs.getString("nombre"));
+						pstm.setString(5, rs.getString("sigla"));
+						pstm.setString(6, rs.getString("nit"));
+						pstm.setInt(7,rs.getInt("codigo_municipio"));
+						pstm.setInt(8,rs.getInt("ues"));
 						pstm.addBatch();
 						rows++;
 						if((rows % 100) == 0){
