@@ -52,8 +52,8 @@ public class CEntidades {
 						}
 						pstm.setInt(1, rs.getInt("ejercicio"));
 						pstm.setInt(2,rs.getInt("entidad"));
-						pstm.setInt(3,rs.getInt("unidad_ejecutora"));
-						pstm.setString(4, rs.getString("nombre"));
+						pstm.setString(3,rs.getString("nombre"));
+						pstm.setInt(4, rs.getInt("unidad_ejecutora"));
 						pstm.setString(5, rs.getString("sigla"));
 						pstm.setString(6, rs.getString("nit"));
 						pstm.setInt(7,rs.getInt("codigo_municipio"));
