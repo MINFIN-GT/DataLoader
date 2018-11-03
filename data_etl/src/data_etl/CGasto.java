@@ -129,6 +129,7 @@ public class CGasto {
 					}
 					pstm.close();
 					CLogger.writeConsole(String.join(" ","Total de records escritos: ",String.valueOf(rows)));
+					ret = true;
 				}
 			}
 			pstm = conn.prepareStatement("DROP TABLE IF EXISTS dashboard.eg_gasto_load");

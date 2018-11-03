@@ -65,6 +65,7 @@ public class CGastoActual {
 					
 					pstm.close();
 					CLogger.writeConsole(String.join(" ","Total de records escritos: ",String.valueOf(rows)));
+					ret = true;
 					
 				}
 			}
