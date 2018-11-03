@@ -20,7 +20,7 @@ public class CGastoActual {
 				+ "cast(ed.proyecto as int) proyecto, cast( ed.actividad as int) actividad, "
 				+ "cast(ed.obra as int) obra, cast(ed.organismo as int) organismo, "
 				+ "cast(ed.correlativo as int) correlativo,  cast(eh.no_cur as int) cur, "
-				+ "cast(ed.geografico as int) geografico, cast(ed.fuente as fuente), "+
+				+ "cast(ed.geografico as int) geografico, cast(ed.fuente as int), "+
 				" 		cast(ed.renglon as int) renglon, cast(eh.clase_registro as int) clase_registro, "
 				+ "(case when eh.clase_registro='DEV' then 1 when eh.clase_registro='CYD' then 2 when eh.clase_registro='RDP' then 3 when eh.clase_registro='REG' then 4 else 5 end) iclase_registro, "
 				+ "ed.monto_renglon, cast(eh.estado as int) estado, " + 
