@@ -49,7 +49,7 @@ public class CGastoActual {
 					rows=rs.next() ? rs.getInt(1) : 0;
 					rs.close();
 					if(rows>0) {
-						PreparedStatement pstm1 = CMemSQL.getConnection().prepareStatement("delete from eg_gasto_actual_load ");
+						PreparedStatement pstm1 = CMemSQL.getConnection().prepareStatement("delete from eg_gasto_actual ");
 						if (pstm1.executeUpdate()>0)
 							CLogger.writeConsole("Registros eliminados");
 						else
