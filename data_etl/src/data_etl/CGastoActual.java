@@ -21,15 +21,16 @@ public class CGastoActual {
 				+ "cast(ed.obra as int) obra, cast(ed.organismo as int) organismo, "
 				+ "cast(ed.correlativo as int) correlativo,  cast(eh.no_cur as int) cur, "
 				+ "cast(ed.geografico as int) geografico, cast(ed.fuente as int), "+
-				" 		cast(ed.renglon as int) renglon, cast(eh.clase_registro as int) clase_registro, "
+				" 		cast(ed.renglon as int) renglon, eh.clase_registro, "
 				+ "(case when eh.clase_registro='DEV' then 1 when eh.clase_registro='CYD' then 2 when eh.clase_registro='RDP' then 3 when eh.clase_registro='REG' then 4 else 5 end) iclase_registro, "
-				+ "ed.monto_renglon, cast(eh.estado as int) estado, " + 
-				"(case when eh.estado='APROBADO' then 1 else 0 end) iestado " + 
+				+ "ed.monto_renglon,eh.estado, " + 
+				"1 iestado " + 
 				"      from "+schema+".EG_GASTOS_DETALLE ed, "+schema+".EG_GASTOS_HOJA eh  " + 
 				"      where ed.ejercicio = eh.EJERCICIO " + 
 				"      and ed.ENTIDAD = eh.ENTIDAD " + 
 				"      and ed.UNIDAD_EJECUTORA = eh.UNIDAD_EJECUTORA " + 
 				"      and ed.NO_CUR = eh.no_cur " + 
+				"	   and eh.estado = 'APROBADO' " +
 				"	   and eh.ejercicio = " + date.getYear();
 		boolean ret = false;
 		try{
